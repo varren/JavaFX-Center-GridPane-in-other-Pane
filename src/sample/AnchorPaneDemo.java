@@ -3,14 +3,13 @@ package sample;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class AnchorPaneDemo  extends Application{
     private GridPane grid;
     private AnchorPane anchorPane;
     private static double GRID_SIZE = 200;
@@ -18,16 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        HBox root = new HBox();
-        root.getChildren().addAll(exampleOne(), exampleTwo());
 
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-
-    public Node exampleOne() {
         grid = new GridPane();
         grid.setStyle("-fx-background-color: bisque;");
         grid.add(new Label("Demo with AnchorPane"),1,1);
@@ -54,8 +44,11 @@ public class Main extends Application {
 
         updatePosition();
 
-        return anchorPane;
+        Scene scene = new Scene(anchorPane);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
+
 
     public void updatePosition() {
         double x = (anchorPane.getWidth() - GRID_SIZE) / 2;
@@ -65,23 +58,6 @@ public class Main extends Application {
         AnchorPane.setTopAnchor(grid, y);
         AnchorPane.setLeftAnchor(grid, x);
         AnchorPane.setBottomAnchor(grid, y);
-    }
-
-    public Node exampleTwo() {
-        GridPane grid = new GridPane();
-        grid.setStyle("-fx-background-color: bisque;");
-        grid.add(new Label("Demo with StackPane"),1,1);
-        grid.setPrefSize(GRID_SIZE, GRID_SIZE);
-        grid.setMaxSize(GRID_SIZE, GRID_SIZE);
-        grid.setMinSize(GRID_SIZE, GRID_SIZE);
-
-        StackPane root = new StackPane();
-        root.setStyle("-fx-background-color: cadetblue");
-        root.setPrefSize(PANE_SIZE, PANE_SIZE);
-
-        StackPane.setAlignment(grid, Pos.CENTER);
-        root.getChildren().addAll(grid);
-        return root;
     }
 
     public static void main(String[] args) {
